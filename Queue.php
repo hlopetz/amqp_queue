@@ -2,28 +2,34 @@
 /**
  * Class for using a Rabbitmq as a queue
  *
- * @category Custom
- * @package Custom_Queue
- * @subpackage Adapter
+ * @category AMQP
+ * @package AMQP_Queue
  * @author Ritesh Jha
- * @copyright Copyright (c) (http://mailrkj(at)gmail(dot)com)
+ * @copyright Copyright (c) mailrkj(at)gmail(dot)com
+ * @see http://riteshsblog.blogspot.com/2011/03/rabbitmq-adapter-for-zend-queue-using.html
  */
 
-class Custom_Queue extends Zend_Queue
+class AMQP_Queue extends Zend_Queue
 {
     var $_instance = null;
 
+    /**
+     * @throws Zend_Queue_Exception
+     * @param AMQP_Queue_Adapter_Rabbitmq $adapter
+     * @param array $options
+     */
     public function __construct($adapter, $options = array())
     {
-        if ($adapter instanceof Custom_Queue_Adapter_Rabbitmq) {
+        if ($adapter instanceof AMQP_Queue_Adapter_Rabbitmq)
+        {
             parent::__construct($adapter, $options);
 
-            #declare new queue
+            // declare new queue
             $queueName = (array_key_exists('name', $options)) ? $options['name'] : 'queue';
             if (array_key_exists('flag', $options)) $adapter->setQueueFlag($options['flag']);
-            $queue = $adapter->create($queueName);
+            $adapter->create($queueName);
             $this->_setName($queueName);
-            #declare exchange
+            // declare exchange
             $routingKey = (array_key_exists('routingKey', $options)) ? $options['routingKey'] : '*';
             $exchangeName = (array_key_exists('exchange', $options)) ? $options['exchange'] : 'exchange';
             $ex = $adapter->setExchange($exchangeName, $routingKey);
