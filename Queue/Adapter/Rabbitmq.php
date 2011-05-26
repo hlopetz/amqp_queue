@@ -210,7 +210,7 @@ class AMQP_Queue_Adapter_Rabbitmq extends Zend_Queue_Adapter_AdapterAbstract
         } else {
             // default approach is GET
             $result = array();
-            for ($i = $maxMessages; $i > 0; $i++)
+            for ($i = $maxMessages; $i > 0; $i--)
             {
                 $message = $this->_amqpQueue->get();
                 if (isset($message['delivery_tag']))
@@ -233,6 +233,7 @@ class AMQP_Queue_Adapter_Rabbitmq extends Zend_Queue_Adapter_AdapterAbstract
             'create' => true,
             'delete' => true,
             'send' => true,
+            'count' => true,
         );
     }
 
