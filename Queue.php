@@ -82,7 +82,7 @@ class AMQP_Queue extends Zend_Queue
      *
      * @param array $options
      * @param int $timeout
-     * @return array
+     * @return Zend_Queue_Message_Iterator
      */
     public function receive($options = null, $timeout = null)
     {
