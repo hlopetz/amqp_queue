@@ -234,6 +234,7 @@ class AMQP_Queue_Adapter_Rabbitmq extends Zend_Queue_Adapter_AdapterAbstract
             'delete' => true,
             'send' => true,
             'count' => true,
+            'deleteMessage' => true,
         );
     }
 
@@ -286,6 +287,10 @@ class AMQP_Queue_Adapter_Rabbitmq extends Zend_Queue_Adapter_AdapterAbstract
      */
     public function deleteMessage(Zend_Queue_Message $message)
     {
+        if (!isset($message->delivery_tag))
+        {
+            throw new Zend_Queue_Exception('No delivery tag for Acking!');
+        }
         return $this->_amqpQueue->ack($message->delivery_tag);
     }
 }
