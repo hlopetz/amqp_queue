@@ -1,0 +1,10 @@
+{
+  "name": "hlopetz/amqp_queue",
+  "description": "amqp_queue",
+  "version":"1.0",
+  "autoload": {
+    "psr-0": {
+      "AMQP_": "."
+    }
+  }
+}
