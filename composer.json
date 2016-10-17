@@ -6,5 +6,8 @@
     "psr-0": {
       "AMQP_": "."
     }
+  },
+  "require": {
+    "ext-amqp": "*"
   }
 }
